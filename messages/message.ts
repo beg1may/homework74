@@ -1,20 +1,23 @@
 import express from "express";
 import {Message} from '../types';
+
 const messageRouter = express.Router();
 
-const message: Message[] = [];
+const messages: Message[] = [];
+const datetime = new Date().toISOString();
 
 messageRouter.get('/', (req, res) => {
-  return res.send(message);
+  return res.send(messages);
 });
 
-messageRouter.get('/:id', (req, res) => {
-  return res.send('Ты отправил GET запрос с ID');
+messageRouter.post('/', (req, res) => {
+  return res.send('Ты отправил post запрос');
 });
 
 messageRouter.post('/:id', (req, res) => {
-  message.push({
+  messages.push({
     message: req.body.message,
+    date: datetime,
   });
   return res.send('Ты отправил POST запрос');
 });
